@@ -9,6 +9,28 @@ only Python itself, plus ffmpeg for videos.
 Inspired by Studio AAA's *Dither Boy*, shown in a [reel by Studio AAA](https://www.instagram.com/reel/Dd60gkJAYAX/).
 Bitwash is an independent project, not affiliated with Studio AAA, and shares no code with it.
 
+![Bitwash](docs/screenshot.jpg)
+
+<!-- videos:start -->
+## See it in action
+
+<p align="center"><a href="docs/videos/tutorial.mp4"><img src="docs/videos/tutorial.jpg" alt="How it works" width="640"></a><br><b>▶ <a href="docs/videos/tutorial.mp4">How it works</a></b> (0:55, with captions)</p>
+
+**Made with Bitwash, from public-domain portraits (The Met) and a free Pexels clip**
+
+<table><tr>
+<td width="33%" align="center"><a href="docs/videos/examples/dancer-ice-beads.mp4"><img src="docs/videos/examples/dancer-ice-beads.gif" alt="Ice Beads"></a><br><a href="docs/videos/examples/dancer-ice-beads.mp4">Ice Beads</a></td>
+<td width="33%" align="center"><a href="docs/videos/examples/dancer-redline-scan.mp4"><img src="docs/videos/examples/dancer-redline-scan.gif" alt="Redline Scan"></a><br><a href="docs/videos/examples/dancer-redline-scan.mp4">Redline Scan</a></td>
+<td width="33%" align="center"><a href="docs/videos/examples/dancer-pocket-green.mp4"><img src="docs/videos/examples/dancer-pocket-green.gif" alt="Pocket Green"></a><br><a href="docs/videos/examples/dancer-pocket-green.mp4">Pocket Green</a></td>
+</tr><tr>
+<td width="33%" align="center"><a href="docs/videos/examples/portrait-ember-glow.mp4"><img src="docs/videos/examples/portrait-ember-glow.gif" alt="Ember Glow (photo)"></a><br><a href="docs/videos/examples/portrait-ember-glow.mp4">Ember Glow (photo)</a></td>
+<td width="33%" align="center"><a href="docs/videos/examples/portrait-pixel-fire-cycling.mp4"><img src="docs/videos/examples/portrait-pixel-fire-cycling.gif" alt="Pixel Fire + Color Cycling"></a><br><a href="docs/videos/examples/portrait-pixel-fire-cycling.mp4">Pixel Fire + Color Cycling</a></td>
+<td width="33%" align="center"><a href="docs/videos/examples/portrait-ink-crosshatch.mp4"><img src="docs/videos/examples/portrait-ink-crosshatch.gif" alt="Ink Crosshatch"></a><br><a href="docs/videos/examples/portrait-ink-crosshatch.mp4">Ink Crosshatch</a></td>
+</tr></table>
+
+Click any picture to play the video. The portrait examples are a slow zoom on the photo, exported as video. Example sources: *Portrait of a Woman* by Adriaen Hanneman, [The Met](https://www.metmuseum.org/art/collection/search/436630); *Portrait of a Man* by Velázquez, [The Met](https://www.metmuseum.org/art/collection/search/437874); *Portrait of a Woman* by Giovanni di Francesco, [The Met](https://www.metmuseum.org/art/collection/search/437859) (all CC0); "A Woman Dancing Gracefully" by [Pavel Danilyuk](https://www.pexels.com/video/a-woman-dancing-gracefully-6939968/) (Pexels licence).
+<!-- videos:end -->
+
 ## Install
 
 You need:
@@ -133,6 +155,8 @@ python -m unittest discover -s tests
   Bitwash is an independent project, not affiliated with Studio AAA, and shares no code with it.
 - Sample images: three portraits from [The Metropolitan Museum of Art](https://www.metmuseum.org/) Open Access
   program (CC0). See [samples/CREDITS.md](samples/CREDITS.md).
+- Footage in the tutorial and examples: the three sample portraits above (CC0), and "A Woman Dancing
+  Gracefully" by [Pavel Danilyuk](https://www.pexels.com/video/a-woman-dancing-gracefully-6939968/) ([Pexels licence](https://www.pexels.com/license/)).
 
 ## Licence
 
