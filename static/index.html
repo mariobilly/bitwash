@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bitwash</title>
+  <link rel="icon" href="icon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <header class="menubar">
+      <canvas class="mark" id="mark-small" width="16" height="16" aria-hidden="true"></canvas>
+      <span class="app-name">Bitwash</span>
+      <nav class="menus" id="menus">
+        <div class="menu" data-menu="file"><button class="menu-btn">File</button>
+          <div class="menu-list">
+            <button data-cmd="open">Open Photo or Video…<kbd>Ctrl O</kbd></button>
+            <button data-cmd="sample">Open a Sample</button>
+            <hr>
+            <button data-cmd="export-image">Export Image<kbd>Ctrl S</kbd></button>
+            <button data-cmd="export-video">Export Video (MP4)<kbd>Ctrl Shift S</kbd></button>
+            <hr>
+            <button data-cmd="import-palette">Import Palette…</button>
+            <button data-cmd="export-palette">Export Palette (.gpl)</button>
+            <hr>
+            <button data-cmd="reveal">Show Exports Folder</button>
+          </div>
+        </div>
+        <div class="menu" data-menu="edit"><button class="menu-btn">Edit</button>
+          <div class="menu-list">
+            <button data-cmd="undo">Undo<kbd>Ctrl Z</kbd></button>
+            <button data-cmd="redo">Redo<kbd>Ctrl Y</kbd></button>
+            <hr>
+            <button data-cmd="save-preset">Save Look as Preset…</button>
+            <button data-cmd="random">Surprise Me<kbd>X</kbd></button>
+            <hr>
+            <button data-cmd="reset-all">Reset Everything</button>
+          </div>
+        </div>
+        <div class="menu" data-menu="view"><button class="menu-btn">View</button>
+          <div class="menu-list">
+            <button data-cmd="zoom-in">Zoom In<kbd>+</kbd></button>
+            <button data-cmd="zoom-out">Zoom Out<kbd>-</kbd></button>
+            <button data-cmd="zoom-100">Actual Size<kbd>1</kbd></button>
+            <button data-cmd="zoom-fit">Fit to Window<kbd>F</kbd></button>
+            <hr>
+            <button data-cmd="mode-full">Viewport: Full<kbd>Q</kbd></button>
+            <button data-cmd="mode-live">Viewport: Live<kbd>W</kbd></button>
+            <button data-cmd="mode-still">Viewport: Still<kbd>E</kbd></button>
+            <hr>
+            <button data-cmd="compare">Hold to See Original<kbd>\</kbd></button>
+          </div>
+        </div>
+        <div class="menu" data-menu="help"><button class="menu-btn">Help</button>
+          <div class="menu-list">
+            <button data-cmd="help">Keyboard Shortcuts &amp; Tips<kbd>?</kbd></button>
+            <button data-cmd="about">About Bitwash</button>
+          </div>
+        </div>
+      </nav>
+      <div class="menubar-right">
+        <span class="hint">Press <kbd>?</kbd> for help</span>
+      </div>
+    </header>
+
+    <main>
+      <section id="viewport" tabindex="-1">
+        <div id="stage" hidden>
+          <canvas id="view"></canvas>
+          <canvas id="orig" hidden></canvas>
+        </div>
+        <div id="empty">
+          <canvas class="mark big" id="mark-big" width="16" height="16" aria-hidden="true"></canvas>
+          <h1>Drop a photo or video</h1>
+          <p>JPG, PNG, WEBP, MP4, MOV, WEBM. Everything runs on this computer.</p>
+          <div class="row">
+            <button class="btn primary" data-cmd="open">Open File…</button>
+            <button class="btn" data-cmd="sample">Try a Sample</button>
+          </div>
+        </div>
+        <div id="drop-hint">Drop to open</div>
+        <div id="busy" hidden>Rendering…</div>
+      </section>
+
+      <nav id="rail" aria-label="Sections">
+        <button data-jump="export" title="Export settings"><svg viewBox="0 0 24 24"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg></button>
+        <button data-jump="presets" title="Presets"><svg viewBox="0 0 24 24"><path d="m12 2 10 5-10 5L2 7l10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></button>
+        <button data-cmd="open" title="Open a photo or video"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+        <button data-jump="color" title="Color palette"><svg viewBox="0 0 24 24"><path d="M12 2.7s6.5 7 6.5 11.5a6.5 6.5 0 0 1-13 0C5.5 9.7 12 2.7 12 2.7Z"/></svg></button>
+        <button data-jump="glow" title="Halo Glow" class="eps">✦</button>
+        <button data-jump="adjust" title="Adjustments"><svg viewBox="0 0 24 24"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></svg></button>
+        <button data-jump="dither" title="Dither style"><svg viewBox="0 0 24 24" class="fill"><rect x="3" y="3" width="4" height="4"/><rect x="11" y="3" width="4" height="4"/><rect x="7" y="7" width="4" height="4"/><rect x="15" y="7" width="4" height="4"/><rect x="3" y="11" width="4" height="4"/><rect x="11" y="11" width="4" height="4"/><rect x="7" y="15" width="4" height="4"/><rect x="15" y="15" width="4" height="4"/><rect x="3" y="19" width="2" height="2"/><rect x="11" y="19" width="2" height="2"/><rect x="19" y="3" width="2" height="2"/><rect x="19" y="11" width="2" height="2"/></svg></button>
+      </nav>
+
+      <aside id="panel">
+        <div class="panel-head">
+          <canvas class="mark" id="mark-panel" width="16" height="16" aria-hidden="true"></canvas>
+          <div class="head-buttons">
+            <button class="btn" data-cmd="export-image">Export Image</button>
+            <button class="btn" data-cmd="export-video" id="btn-export-video" disabled>Export Video</button>
+          </div>
+        </div>
+        <div id="sections"></div>
+      </aside>
+    </main>
+
+    <footer class="statusbar">
+      <span id="status">Ready</span>
+      <div class="zoom">
+        <button class="icon-btn" data-cmd="zoom-out" title="Zoom out">−</button>
+        <span id="zoom-label">100%</span>
+        <button class="icon-btn" data-cmd="zoom-in" title="Zoom in">+</button>
+        <button class="icon-btn" data-cmd="zoom-fit" title="Fit to window">⤢</button>
+      </div>
+      <div class="video-controls" id="video-controls" hidden>
+        <button class="icon-btn" id="btn-play" title="Play / pause (Space)">▶</button>
+        <input type="range" id="scrub" min="0" max="1000" value="0" step="1" aria-label="Video position">
+        <span id="time">0:00 / 0:00</span>
+        <button class="icon-btn" id="btn-mute" title="Sound on / off">🔇</button>
+      </div>
+      <div class="spacer"></div>
+      <div class="modes" role="group" aria-label="Viewport">
+        <span class="label">Viewport</span>
+        <button data-mode="full" title="Full quality, plays motion (Q)">Full</button>
+        <button data-mode="live" title="Fast preview while playing or dragging (W)">Live</button>
+        <button data-mode="still" title="Paused, full quality (E)">Still</button>
+      </div>
+      <span id="file-name">no file</span>
+      <button class="icon-btn" data-cmd="undo" title="Undo (Ctrl Z)">↶</button>
+      <button class="icon-btn" data-cmd="redo" title="Redo (Ctrl Y)">↷</button>
+    </footer>
+  </div>
+
+  <div id="modal" class="modal" hidden>
+    <div class="modal-card">
+      <h2 id="modal-title"></h2>
+      <div id="modal-body"></div>
+      <div class="progress" id="modal-progress" hidden><div></div></div>
+      <div class="row end" id="modal-actions"></div>
+    </div>
+  </div>
+  <div id="toast" hidden></div>
+  <input type="file" id="file-open" accept="image/*,video/*,.mov,.mkv" hidden>
+  <input type="file" id="file-palette" accept=".gpl,.hex,.txt,.json,.css,image/*" hidden>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
